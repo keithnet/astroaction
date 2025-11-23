@@ -1,8 +1,6 @@
-# Deploy Astro to GitHub Pages
+# Deploy Astro to Zip File
 
-This action for [Astro](https://github.com/withastro/astro) builds your static Astro project for [GitHub Pages](https://pages.github.com/).
-
-For more information, please see our complete deployment guide—[Deploy your Astro Site to GitHub Pages](https://docs.astro.build/en/guides/deploy/github/).
+This action for [Astro](https://github.com/withastro/astro) builds your static Astro project and makes a zip file of the file.
 
 ## Usage
 
@@ -17,12 +15,12 @@ For more information, please see our complete deployment guide—[Deploy your As
 
 ### Example workflow:
 
-#### Build and Deploy to GitHub Pages
+#### Build and Zip
 
 Create a file at `.github/workflows/deploy.yml` with the following content.
 
 ```yml
-name: Deploy to GitHub Pages
+name: Deploy to Zip File
 
 on:
   # Trigger the workflow every time you push to the `main` branch
@@ -45,21 +43,11 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v5
       - name: Install, build, and upload your site output
-        uses: withastro/action@v5
+        uses: keithnet/astroaction@v5
         # with:
             # path: . # The root location of your Astro project inside the repository. (optional)
             # node-version: 22 # The specific version of Node that should be used to build your site. Defaults to 22. (optional)
             # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
             # build-cmd: pnpm run build # The command to run to build your site. Runs the package build script/task by default. (optional)
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
 ```
